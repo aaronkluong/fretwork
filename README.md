@@ -63,11 +63,3 @@ This repo uses **Husky** to run linting and type-checking on pre-commit.
 
 > [!NOTE]
 > On Windows native environments, `pages:build` can hit symlink errors. Build inside WSL or with Windows Developer Mode enabled.
-
-## Team
-| Name | Role | Contact |
-| :--- | :--- | :--- |
-| **Zev Rosen** | Project Manager | zar27@ischool.berkeley.edu |
-| **Ani Sreekumar** | Product Manager | anisreekumar@berkeley.edu |
-| **Kobby Hanson** | Lead Developer | kobbyhanson@berkeley.edu |
-| **Aaron Luong** | Model Evaluation | aaluong@berkeley.edu |
