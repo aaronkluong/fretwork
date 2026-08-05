@@ -1,65 +1,120 @@
-# Fretwork - Guitar Transcription and Tablature Engine
+# Fretwork
 
-Fretwork transcribes audio into playable guitar tablature by mapping notes to natural fretboard fingerings.
+<p align="center">
+  <img src="assets/demo.gif" alt="Fretwork Demo" width="900">
+</p>
 
-## The Problem
-Most automatic transcription tools ignore guitar geometry. They output raw notes without considering hand stretches, string collisions, or shifting positions along the neck, producing tabs that are difficult or impossible to play.
+**Fretwork** is an AI-powered guitar transcription platform that converts raw guitar recordings into playable guitar tablature. Unlike traditional transcription tools, Fretwork optimizes *how* notes are played, producing natural fingerings through transformer-guided fret assignment and beam search while allowing users to customize and edit the generated tabs.
 
-## Our Approach
-Fretwork uses audio transcription models like Basic Pitch combined with a causal TabTransformer prior and Viterbi decoding (`prox_viterbi_transformer`) to choose ergonomic, playable neck positions.
+---
 
-## Documentation
-- [Executive Summary](./docs/fretwork.md) - High-level vision, problem space, and core research takeaways.
-- [System Architecture](./docs/architecture.md) - Master Mermaid diagram, team roles, and pipeline data flow.
-- [Technical Specification](./docs/technical_spec.md) - Formal logic and mathematical model for the Viterbi fretboard algorithm.
-- [Evaluation & Production Results](./docs/results.md) - Empirical benchmarks across GuitarSet & GAPS datasets, model comparison, and accuracy metrics.
-- [Data Assets and Schemas](./docs/data.md) - Deep dive into GuitarSet, JAMS, and audio assets.
-- [Execution Checklist](./docs/checklist.md) - Project milestone tracker and active task roadmap.
-- [Technical Review](./docs/review.md) - Architectural gaps and technical recommendations.
-- [Deployment Guide](./docs/deployment.md) - Infrastructure overview for AWS and Cloudflare.
-- [AWS & Docker Deployment](./docs/aws_docker.md) - Detailed AWS ECS Fargate & ECR deployment guide.
-- [Tablature Reading Guide](./docs/reading_tabs.md) - Guide to reading guitar tabs.
+## Features
 
-## Core Features
-- **Audio-to-Tab Conversion**: Polyphonic note detection from audio files.
-- **Fretboard Optimization**: Pathfinding to minimize awkward hand stretches and position jumps.
-- **Harmonic Analysis**: Key, tempo, and chord progression detection.
+- 🎸 Convert recorded guitar audio into playable tablature
+- 🎼 Detect notes, keys, chords, and musical context
+- 🧠 Transformer-guided fret assignment with beam search optimization
+- 🎯 Multiple playable fingerings and difficulty levels
+- ✏️ Interactive note editing and alternate arrangements
+- ⚡ End-to-end transcription in seconds
 
-## Web Interface (`/fretwork`)
-Built with Next.js 16, Tailwind CSS v4, TypeScript, and alphaTab for interactive tab rendering and ASCII export.
+---
 
-### Quickstart & Development
-All primary commands are configured to run directly from the **workspace root directory** (`/`):
+## Performance
 
-```bash
-# Install workspace dependencies
-pnpm install
+| Method | Pitch F1 | End-to-End Tab F1 | Avg. Time |
+|---------|---------:|------------------:|-----------:|
+| **Fretwork** | **79.9%** | **59.7%** | **3.8 sec** |
+| ChatGPT | 60.6% | 37.6% | 1.3 min |
+| SongScription | 36.4% | 30.6% | 30 sec |
 
-# Run backend (FastAPI:8000) and frontend (Next.js:3000) concurrently
-pnpm dev
+Compared with identical GuitarSet recordings and evaluation protocol:
+
+- **+22.1%** End-to-End Tab F1 vs. ChatGPT
+- **+29.1%** End-to-End Tab F1 vs. SongScription
+- **20× faster** than ChatGPT
+
+---
+
+## Architecture
+
+<p align="center">
+  <img src="assets/architecture.png" width="900">
+</p>
+
+Fretwork follows a multi-stage pipeline:
+
+1. Audio transcription
+2. Pitch detection
+3. Musical context extraction (key + chords)
+4. Transformer-guided fret assignment
+5. Beam search decoding
+6. Interactive tablature generation
+
+The fret assignment model scores every valid string/fret combination using musical context and playability heuristics before beam search finds the smoothest complete tablature sequence.
+
+---
+
+## Tech Stack
+
+**Machine Learning**
+- Python
+- PyTorch
+- Transformer models
+- Beam Search
+
+**Music Processing**
+- Spotify Basic Pitch
+- Librosa
+- AutoChord
+- AlphaTab
+
+**Backend**
+- FastAPI
+- AWS ECS Fargate
+
+**Frontend**
+- Next.js
+- Cloudflare Pages
+
+---
+
+## Repository Structure
+
+```
+backend/                 FastAPI backend
+fretwork/                Next.js frontend
+scripts/                 Utility scripts
+config/                  Configuration
+docs/                    Documentation
+jupyter_notebooks/       Experiments
 ```
 
-### Workspace Commands (Root Workspace)
-| Command | Description | Working Directory |
-| :--- | :--- | :---: |
-| `pnpm dev` | Run backend & frontend concurrently | Root (`/`) |
-| `pnpm dev:backend` | Run Python FastAPI server only (`http://localhost:8000`) | Root (`/`) |
-| `pnpm dev:frontend` | Run Next.js web client only (`http://localhost:3000`) | Root (`/`) |
-| `pnpm test` | Run full test suite (Vitest + Pytest) | Root (`/`) |
-| `pnpm test:frontend` | Run Vitest unit & component test suite | Root (`/`) |
-| `pnpm test:backend` | Run Pytest backend integration test suite | Root (`/`) |
-| `pnpm lint` | Run ESLint code quality checks | Root (`/`) |
-| `pnpm check-types` | Run TypeScript strict type verification | Root (`/`) |
-| `pnpm build` | Build production Next.js bundle | Root (`/`) |
-| `pnpm pages:build` | Build OpenNext Cloudflare Pages bundle | Root (`/`) |
-| `pnpm pages:deploy` | Deploy build output to Cloudflare Pages | Root (`/`) |
+---
 
-### Git Hooks
-This repo uses **Husky** to run linting and type-checking on pre-commit.
+## Roadmap
 
-### Deployment (Cloudflare Pages & AWS ECS)
-* **Frontend (Cloudflare Pages)**: `pnpm pages:build` and `pnpm pages:deploy`
-* **Backend (AWS ECS Fargate)**: `backend/scripts/deploy_aws.ps1` or `backend/scripts/deploy_aws.sh`
+- [ ] Support bends, slides, hammer-ons, and vibrato
+- [ ] Additional guitar tunings
+- [ ] Bass transcription
+- [ ] MIDI export
+- [ ] Larger benchmark suite
 
-> [!NOTE]
-> On Windows native environments, `pages:build` can hit symlink errors. Build inside WSL or with Windows Developer Mode enabled.
+---
+
+## Contributors
+
+- Aaron Luong
+- Kobby Hanson
+- Ani Sreekumar
+- Zev Rosen 
+
+---
+
+## Acknowledgements
+
+Special thanks to the teams behind:
+
+- GuitarSet
+- DadaGP
+- Spotify Basic Pitch
+- AlphaTab
