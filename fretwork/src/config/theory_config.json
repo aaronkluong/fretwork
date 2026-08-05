@@ -1,0 +1,27 @@
+{
+  "max_fret": 24,
+  "standard_tuning": [40, 45, 50, 55, 59, 64],
+  "string_names": ["low_E", "A", "D", "G", "B", "high_E"],
+  "string_display_labels": ["e", "B", "G", "D", "A", "E"],
+  "tunings": {
+    "standard": [40, 45, 50, 55, 59, 64],
+    "drop_d": [38, 45, 50, 55, 59, 64],
+    "drop_c": [36, 43, 48, 53, 57, 62],
+    "eb_standard": [39, 44, 49, 54, 58, 63],
+    "dadgad": [38, 45, 50, 55, 57, 62],
+    "open_g": [38, 43, 50, 55, 59, 62]
+  },
+  "ergonomics": {
+    "comfortable_span": 5,
+    "max_reachable_span": 7,
+    "large_jump_threshold": 5,
+    "max_group_candidates": 25,
+    "comfortable_chord_span": 3,
+    "max_chord_span": 4,
+    "onset_tolerance_seconds": 0.035
+  },
+  "pitch_classes": {
+    "sharp_names": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    "midi_note_names": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+  }
+}

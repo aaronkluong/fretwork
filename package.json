@@ -1,0 +1,23 @@
+{
+  "name": "guitar-capstone-root",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -c \"blue.bold,green.bold\" -n \"backend,frontend\" \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "dev:backend": "node scripts/dev-backend.mjs",
+    "dev:frontend": "pnpm --filter fretwork dev",
+    "test": "pnpm test:frontend && pnpm test:backend",
+    "test:frontend": "pnpm --filter fretwork test --coverage",
+    "test:backend": "node scripts/test-backend.mjs",
+    "lint": "pnpm --filter fretwork lint",
+    "check-types": "pnpm --filter fretwork check-types",
+    "build": "pnpm --filter fretwork build",
+    "build:pages": "pnpm --filter fretwork build:pages",
+    "pages:build": "pnpm --filter fretwork pages:build",
+    "pages:deploy": "pnpm --filter fretwork pages:deploy",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "husky": "^9.0.11"
+  }
+}

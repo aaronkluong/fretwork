@@ -1,0 +1,45 @@
+# Environment & Secrets
+.env
+*.env.local
+*.env.*.local
+
+# Python / Cache
+__pycache__/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Next.js
+node_modules/
+.next/
+.open-next/
+coverage/
+*.tsbuildinfo
+.pnpm-store/
+*.log
+
+# Git
+!.husky/
+
+# Workspace Artifacts & Datasets
+outputs/
+dist/
+build/
+out/
+scratch/
+_nb_extract/
+transformer_prior/
+GAPS_dataset/
+FullGuitarSetData/
+dadagp_distilled/
+sources/
+jupyter_notebooks/data/
+*.pt
+*.pth
+
+
+# OS Files
+.DS_Store
+Thumbs.db

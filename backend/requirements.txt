@@ -1,0 +1,42 @@
+# Fretwork backend dependencies
+# Pin versions to match what the notebooks tested against
+
+# API framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Audio processing
+librosa>=0.8
+soundfile>=0.12.1
+ffmpeg-python          # Python bindings; still requires ffmpeg system binary
+imageio-ffmpeg>=0.5.1  # Bundled ffmpeg binary for local Windows (browser WebM→WAV)
+six>=1.16.0            # pretty_midi / basic-pitch dependency (not always pulled in)
+
+# Transcription (Basic Pitch)
+# Note: basic-pitch 0.4.0 was tested in the notebooks.
+# It has a known conflict with resampy>=0.4.3 and tensorflow>=2.15.
+# Pin both here to match the Colab environment.
+basic-pitch==0.4.0
+resampy==0.4.2
+tensorflow>=2.4.1,<2.15.1
+
+# Chord detection
+autochord
+tf_keras
+
+# Fretboard algorithm / ML
+numpy>=1.21
+scipy>=1.4
+xgboost>=2.0
+joblib>=1.3
+
+# Transformer position prior (assign_prox_viterbi_transformer in fretboard.py).
+# Installed separately in the Dockerfile from the CPU-only PyTorch index — the
+# default PyPI wheel bundles CUDA runtime libs we don't need on Fargate and would
+# roughly double the image size. Kept out of this file so `pip install -r` here
+# doesn't shadow that install; see Dockerfile for the actual pin.
+# torch==2.4.1
+
+# JAMS processing
+# No external jams package needed — parser is implemented directly in jams_processor.py

@@ -1,0 +1,32 @@
+{
+  "family": "fretwork-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "3072",
+  "executionRoleArn": "arn:aws:iam::992685484195:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "fretwork-backend",
+      "image": "992685484195.dkr.ecr.us-east-1.amazonaws.com/fretwork-backend:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/fretwork-backend",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      },
+      "environment": []
+    }
+  ]
+}

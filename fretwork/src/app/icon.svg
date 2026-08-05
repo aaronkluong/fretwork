@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="32" x2="32" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00BFA5"/>
+      <stop offset="1" stop-color="#0073ed"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+  <text x="16" y="22" fill="white" font-family="system-ui, sans-serif" font-weight="bold" font-size="18" text-anchor="middle">F</text>
+</svg>
